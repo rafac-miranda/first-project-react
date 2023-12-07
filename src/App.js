@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, { useState, useRef } from "react"
 import LoginLogo from "./assets/login-logo.svg"
 //import SignupBg from "./assets/signup-bg.svg"
 //import SignupLogo from "./assets/signup-logo.svg"
@@ -16,22 +16,17 @@ const App = () => {
 
   //REACT HOOKS => FERRAMENTAS AUXILIARES
   const [users, setUsers] = useState([]);
-  const [name, setName] = useState();
-  const [age, setAge] = useState();
+  const inputName = useRef()
+  const inputAge = useRef()
 
-  const addNewUser = () => {(
-    setUsers([ ... users,{ id: Math.random(), name, age}])
+  const addNewUser = () => {
+    (
+      setUsers([...users, { id: Math.random(), name: inputName.current.value, age: inputAge.current.value }])
 
-    //[{ id: Math.random(), name: "Rafael", age: 26 }]
-  )}
+      //[{ id: Math.random(), name: "Rafael", age: 26 }]
+    )
+  }
 
-  const changeInputName = (event) => {(
-    setName(event.target.value)
-  )}
-
-  const changeInputAge = (event) => {(
-    setAge(event.target.value)
-  )}
 
   return (
 
@@ -44,10 +39,10 @@ const App = () => {
         <H1>Olá!</H1>
 
         <InputLabel>Nome</InputLabel>
-        <Input onChange={changeInputName} placeholder="Nome" />
+        <Input ref={inputName} placeholder="Nome" />
 
         <InputLabel>Idade</InputLabel>
-        <Input onChange={changeInputAge} placeholder="Idade" />
+        <Input ref={inputAge} placeholder="Idade" />
 
         <Button onClick={addNewUser}>
           Cadastrar <img alt="arrow" src={Arrow} />
